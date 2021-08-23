@@ -1,25 +1,47 @@
 <aura:component>
-    <aura:attribute name="item" type="Camping_Item__c" required="true" 
-                    default="{'sobjectType': 'Camping_Item__c',
-                                'Name':'John',
-                                'Price':0,
-                                'Quantity':0,
-                                'Packed':false}"/>
-    <p>Name: {!v.item.Name}
-    </p>
-    <p>Price:
-        <lightning:formattedNumber value="{!v.item.Price__c}" style="currency"/>
-    </p>
-    <p>Quantity:
-        <lightning:formattedNumber value="{!v.item.Quantity__c}"/>
-    </p>
-    <lightning:button label="Packed?" 
-                        onclick="{!c.packItem}"/>
-    <p>
-        <lightning:input type="toggle"
-                         label="Packed?"
-                         name="packed"
-                         checked="{!v.item.Packed__c}" />
-     </p>
-    <!-- Other markup here -->
+    <aura:attribute name="items" type="Camping_Item__c[]" required="true" 
+        default="{'sobjectType': 'Camping_Item__c',
+                    'Name':'John',
+                    'Price__c':0,
+                    'Quantity__c':0,
+                    'Packed__c':false}"/>
+    <!-- CREATE NEW EXPENSE -->
+    <div aria-labelledby="newitemform">
+    <!-- BOXED AREA -->
+    <fieldset class="slds-box slds-theme_default slds-container_small">
+    <legend id="newitemform" class="slds-text-heading_small
+    slds-p-vertical_medium">
+    Add Item
+    </legend>
+    <!-- CREATE NEW EXPENSE FORM -->
+    <form class="slds-form_stacked">
+    <lightning:input aura:id="itemform" label="Name"
+                name="itemname"
+                value="{!v.item.Name}"
+                required="true"/>
+    <lightning:input type="number" aura:id="itemform" label="Price"
+                name="itemprice"
+                min="0.1"
+                formatter="currency"
+                step="0.01"
+                value="{!v.item.Price__c}"
+                messageWhenRangeUnderflow="Enter an price that's at least $0.10."/>
+    <lightning:input type="number" aura:id="itemform" label="Quantity"
+                name="itemquantity"
+                min="1"
+                value="{!v.item.Quantity__c}"
+                messageWhenRangeUnderflow="Enter a quantity that's at least 1"/>
+    <lightning:input type="toggle" aura:id="itemform" label="Packed?"
+                name="itempacked"
+                checked="{!v.item.Packed__c}"/>
+    <lightning:button label="Create Item"
+                class="slds-m-top_medium"
+                variant="brand"
+                onclick="{!c.clickCreate}"/>
+    </form>
+    <!-- / CREATE NEW EXPENSE FORM -->
+    </fieldset>
+    <!-- / BOXED AREA -->
+    </div>
+    <!-- / CREATE NEW EXPENSE -->
 </aura:component>
