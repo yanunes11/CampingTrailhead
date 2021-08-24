@@ -1,0 +1,7 @@
+<apex:page>
+    <head>
+        <apex:slds/>
+    </head>
+    <body>
+    </body>
+</apex:page>
